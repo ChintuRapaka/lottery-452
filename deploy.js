@@ -12,12 +12,14 @@ const provider = new HDWalletProvider(
 );
 const web3 = new Web3(provider);
 
+let result;
+
 const deploy = async () => {
   const accounts = await web3.eth.getAccounts();
 
   console.log('Attempting to deploy from account', accounts[0]);
 
-  const result = await new web3.eth.Contract(JSON.parse(interface))
+  result = await new web3.eth.Contract(JSON.parse(interface))
     .deploy({ data: bytecode })
     .send({ gas: '1000000', from: accounts[0] });
 
@@ -26,3 +28,9 @@ const deploy = async () => {
 };
 deploy();
 
+const getAddr = async() => {
+  let contract = await result.options.address;
+  return contract;
+};
+
+module.exports = getAddr;
