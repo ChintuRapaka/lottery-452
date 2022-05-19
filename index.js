@@ -10,9 +10,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 
-app.get('/', (req, res) => {
-    res.redirect('/getContract');
-})
+// app.get('/', (req, res) => {
+//     res.redirect('/getContract');
+// })
 app.get('/getContract', async (req, res) => {
     const address = await getAddr();
     return res.json({"address": address})
