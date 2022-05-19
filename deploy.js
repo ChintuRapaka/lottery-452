@@ -12,7 +12,6 @@ const provider = new HDWalletProvider(
 );
 const web3 = new Web3(provider);
 
-let contract;
 let result;
 
 const deploy = async () => {
@@ -20,8 +19,8 @@ const deploy = async () => {
 
   console.log('Attempting to deploy from account', accounts[0]);
 
-  result = await new web3.eth.Contract(abi)
-    .deploy({ data: evm.bytecode.object })
+  result = await new web3.eth.Contract(JSON.parse(interface))
+    .deploy({ data: bytecode })
     .send({ gas: '1000000', from: accounts[0] });
 
   console.log(interface);
@@ -32,7 +31,7 @@ const deploy = async () => {
 deploy();
 
 const getAddr = async() => {
-  contract = await result.options.address;
+  let contract = await result.options.address;
   return contract;
 };
 
